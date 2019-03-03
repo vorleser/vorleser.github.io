@@ -1,0 +1,16 @@
+sudo: required
+install:
+  - npm install -g elm@0.18
+  - elm-package install -y
+script:
+  - make release
+  - cat .travis-gitignore > .gitignore # Update gitignore for github pages deployment
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  repo: vorleser/vorleser.github.io
+  on:
+    branch: master
+  target-branch: master # For the <orgname>.github.io repos you need to deploy to master
